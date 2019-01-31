@@ -8,21 +8,18 @@ using Const;
 
 public class SceneResultManager : MonoBehaviour
 {
-    //public static readonly string[] KEY = { "0", "1", "2", "3", "4" };
-   //public static readonly int RANKING_LENGTH =5;
 
     private Text ScoreText;
     private int score;
-    //public static readonly string[] KEY ;
+    private static int rank=100;
 
-
-    //public static 
 
     // Use this for initialization
     void Start()
     {
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        //score = SceneMain.GetScore();
+        //score = SceneMain.GetScore();****************************************************************************
+        ScoreText.text = "Score : "+score.ToString();
 
 
     }
@@ -30,29 +27,36 @@ public class SceneResultManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ScoreText.text = "Score : "+score.ToString();
+
+
     }
 
     public void ChangeScene()
     {
-        Debug.Log("Change");
+        //Debug.Log("Change");
 
         for (int i = 0; i < CO.RANKING_LENGTH; i++)
         {
-            if (score > PlayerPrefs.GetInt(CO.KEY[i], 0))
+            if (score > PlayerPrefs.GetInt(i.ToString(), 0))
             {
+                rank = i ;
                 for (int j = CO.RANKING_LENGTH - 1; j > i; j--)
                 {
-                    PlayerPrefs.SetInt(CO.KEY[j], PlayerPrefs.GetInt(CO.KEY[j - 1], 0));
+                    PlayerPrefs.SetInt(j.ToString(), PlayerPrefs.GetInt((j - 1).ToString(), 0));
                 }
-                PlayerPrefs.SetInt(CO.KEY[i], score);
+                PlayerPrefs.SetInt(i.ToString(), score);
                 PlayerPrefs.Save();
                 break;
             }
         }
 
-        //SceneManager.LoadScene("SceneRanking");
+        SceneManager.LoadScene("SceneRanking");
 
+    }
+
+    public static int GetRank()
+    {
+        return rank;
     }
 
 
