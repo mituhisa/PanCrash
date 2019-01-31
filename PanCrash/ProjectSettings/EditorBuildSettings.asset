@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/SceneResult/SceneResult.unity
     guid: 5812cddaaf562d247b741a1de2ffc009
   - enabled: 1
@@ -17,3 +18,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SceneRanking/SceneRanking.unity
     guid: 0d1b5c2e3d452cc4382bc5ae77de5e9b
+=======
+    path: Assets/SceneMain/Main.unity
+    guid: 1181976eb1ca51142a3fe72c9ce78d4d
+>>>>>>> mitu
