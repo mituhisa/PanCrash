@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Sensor : MonoBehaviour {
+
+    public Text text;
 
     bool PlayerFlg = false;
     bool SetFlg = false;
 
     int Status = 99;
+
+    [HideInInspector]
+    public int Score = 0;
 
     float waitTime = 0;
     float Judg = 0;
@@ -16,21 +22,27 @@ public class Sensor : MonoBehaviour {
 
     GameObject player;
     GameObject JK;
+    AudioSource aud;
     public GameObject[] Judgment;
+    public GameObject[] Effects;
+    public GameObject[] Pan;
+    public AudioClip[] Se;
 
     // Use this for initialization
     void Start () {
-		
+        aud = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        text.GetComponent<Text>().text = Score.ToString("0");
 		if(PlayerFlg && !SetFlg)      //プレイヤーが飛び出ていてJKが来てない場合
         {
             waitTime += Time.deltaTime;
             if (waitTime > 0.05f && !SetFlg)
             {
-                player.GetComponent<Player>().CheckFlg = false;
+                //player.GetComponent<Player>().CheckFlg = false;
+                //Destroy(player);
                 PlayerFlg = false;
                 waitTime = 0;
             }
@@ -38,47 +50,33 @@ public class Sensor : MonoBehaviour {
         else if(PlayerFlg && SetFlg)     //プレイヤーが飛び出ていてかつ、JKが来ている場合
         {
             waitTime = 0;
+            Destroy(player);
             //JKとSensorとの距離を求めてそれに応じたスコアを加算する
-            float y = (transform.position.y - JKpos.y)*-1;
-            Debug.Log(y);
-            Debug.Log(JKpos);
+            float y = Mathf.Abs(transform.position.y - JKpos.y);
             if (y > 0)
             {
                 if(y >=0 && y < 0.1f) //Excelent
                 {
                     Status = 0;
                     Judgment[Status].SetActive(true);
-                    for(int i=0; i<Judgment.Length; i++)
-                    {
-                        if(i != Status) Judgment[i].SetActive(false);
-                    }
+                    if(!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.1f && y < 0.5f) //Great
                 {
                     Status = 1;
                     Judgment[Status].SetActive(true);
-                    for (int i = 0; i < Judgment.Length; i++)
-                    {
-                        if (i != Status) Judgment[i].SetActive(false);
-                    }
+                    if (!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.5f && y < 0.8f) //Nice
                 {
                     Status = 2;
                     Judgment[Status].SetActive(true);
-                    for (int i = 0; i < Judgment.Length; i++)
-                    {
-                        if (i != Status) Judgment[i].SetActive(false);
-                    }
+                    if (!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.8f && y < 1.0f) //Bad
                 {
                     Status = 3;
                     Judgment[Status].SetActive(true);
-                    for (int i = 0; i < Judgment.Length; i++)
-                    {
-                        if (i != Status) Judgment[i].SetActive(false);
-                    }
                 }
                 else //Miss
                 {
@@ -94,37 +92,32 @@ public class Sensor : MonoBehaviour {
         switch (Status)
         {
             case 0:
-                Debug.Log("Excelent");
                 JK.GetComponent<JK>().rotStart = true;
-                //JKpos = Vector2.zero;
-                player.GetComponent<Player>().Score += 100;
+                GameObject Clone1 = GameObject.Find("Excellent(Clone)");
+                if (Clone1 == null) { GameObject Ex = Instantiate(Pan[Status], transform.position, transform.rotation); }
+
+                if (!aud.isPlaying) aud.PlayOneShot(Se[Status]);
                 Status = 99;
                 break;
             case 1:
-                Debug.Log("Greate");
                 JK.GetComponent<JK>().rotStart = true;
-                //JKpos = Vector2.zero;
-                player.GetComponent<Player>().Score += 50;
+                GameObject Clone2 = GameObject.Find("Great(Clone)");
+                if (Clone2 == null) { GameObject Gr = Instantiate(Pan[Status], transform.position, transform.rotation); }
+                if (!aud.isPlaying) aud.PlayOneShot(Se[Status]);
                 Status = 99;
                 break;
             case 2:
-                Debug.Log("Nice");
                 JK.GetComponent<JK>().rotStart = true;
-                //JKpos = Vector2.zero;
-                player.GetComponent<Player>().Score += 10;
+                GameObject Clone3 = GameObject.Find("Nice(Clone)");
+                if (Clone3 == null) { GameObject Ni = Instantiate(Pan[Status], transform.position, transform.rotation); }
+                if (!aud.isPlaying) aud.PlayOneShot(Se[Status]);
                 Status = 99;
                 break;
             case 3:
-                Debug.Log("Bad");
-                //Destroy(JK);
-                //JKpos = Vector2.zero;
-                player.GetComponent<Player>().Score += 5;
+                if (!aud.isPlaying) aud.PlayOneShot(Se[Status]);
                 Status = 99;
                 break;
             case 4:
-                Debug.Log("Miss");
-                //Destroy(JK);
-                //JKpos = Vector2.zero;
                 Status = 99;
                 break;
             default:
@@ -153,6 +146,14 @@ public class Sensor : MonoBehaviour {
                     JKpos = collision.gameObject.transform.position;
                     JK = collision.gameObject;
                 }
+            }
+        }
+
+        if(collision.tag == "OTK")
+        {
+            if(PlayerFlg)
+            {
+                aud.PlayOneShot(Se[4]);
             }
         }
     }
