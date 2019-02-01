@@ -36,7 +36,7 @@ public class SceneRankingManager : MonoBehaviour
            }
 
 
-        ScoreText.text = null;
+        ScoreText.text = null;  //スコアのテキストを空にする
         for (int i = 0; i < CO.RANKING_LENGTH; i++)
         {
             //PlayerPrefs.SetInt(i.ToString(), 0);                  //名前とスコアをリセットするデバッグ用
@@ -59,15 +59,17 @@ public class SceneRankingManager : MonoBehaviour
 
     }
 
+    //タイトルシーンへ
     public void ChangeScene()
     {
         SceneManager.LoadScene("SceneTitle");   //タイトルへシーンチェンジ
     }
 
 
+    //名前を入力する用関数
     public void InputName()
     {
-        if (inputField.text.Length <= 6)
+        if (inputField.text.Length <= 6)    //６文字だけ
         {
             PlayerPrefs.SetString(rank.ToString()+"s", inputField.text);        //入力した名前を保存
         }
@@ -76,7 +78,7 @@ public class SceneRankingManager : MonoBehaviour
 
     }
 
-    //
+    //PlayerPrefsから名前を取得してテキストに入れる用関数
     private void InputRanking()
     {
         NameText.text = null;

@@ -16,11 +16,13 @@ public class SceneTitleManager : MonoBehaviour {
 	}
 
 
+    //シーンメインボタン
     public void ChangeSceneMain()
     {
         SceneManager.LoadScene("Main");
     }
 
+    //シーンランキングボタン
     public void ChangeSceneRanking()
     {
         SceneRankingManager.SetRank(1000);
