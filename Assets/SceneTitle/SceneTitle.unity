@@ -203,7 +203,7 @@ SpriteRenderer:
   m_Size: {x: 2.08, y: 2.83}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &208882451
 Transform:
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_Size: {x: 2.08, y: 2.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &237058980
 Transform:
@@ -303,8 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aabd539204236c43a0cfc0580fe28cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Move: 0
-  MoveTimer: 0
 --- !u!1 &251584048
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +605,7 @@ SpriteRenderer:
   m_Size: {x: 4.13, y: 1.19}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &324803543
 Transform:
@@ -849,7 +847,7 @@ SpriteRenderer:
   m_Size: {x: 2.34, y: 1.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &1097379174
 Transform:
@@ -1121,9 +1119,6 @@ MonoBehaviour:
   KuikakeBreadPrefab: {fileID: 1145380451973658, guid: 2063d96b0c5dc0d47bcbe101a1952f9f,
     type: 2}
   SpawnFlg: 0
-  RandomPanPosition: 0
-  SpawnTimer: 0
-  RandomNum: 0
 --- !u!4 &1437420589
 Transform:
   m_ObjectHideFlags: 0
@@ -1257,7 +1252,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 3.38}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &1875060281
 Transform:
@@ -1330,7 +1325,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 3.38}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &2038350284
 Transform:
@@ -1403,7 +1398,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 3.38}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!4 &2122652053
 Transform:
