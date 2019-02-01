@@ -23,6 +23,7 @@ public class SceneTitleManager : MonoBehaviour {
 
     public void ChangeSceneRanking()
     {
+        SceneRankingManager.SetRank(1000);
         SceneManager.LoadScene("SceneRanking");
     }
 

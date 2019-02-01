@@ -19,6 +19,7 @@ public class SceneResultManager : MonoBehaviour
     {
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         //score = SceneMain.GetScore();****************************************************************************
+        score = 1000;
         ScoreText.text = "Score : "+score.ToString();
 
 
@@ -39,7 +40,8 @@ public class SceneResultManager : MonoBehaviour
         {
             if (score > PlayerPrefs.GetInt(i.ToString(), 0))
             {
-                rank = i ;
+                SceneRankingManager.SetRank(i);
+
                 for (int j = CO.RANKING_LENGTH - 1; j > i; j--)
                 {
                     PlayerPrefs.SetInt(j.ToString(), PlayerPrefs.GetInt((j - 1).ToString(), 0));
@@ -54,10 +56,6 @@ public class SceneResultManager : MonoBehaviour
 
     }
 
-    public static int GetRank()
-    {
-        return rank;
-    }
 
 
 }
