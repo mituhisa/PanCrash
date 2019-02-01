@@ -17,10 +17,10 @@ public class Judgment : MonoBehaviour {
 	void Update () {
         time += Time.deltaTime;
 
-        for(int i=0; i < otherJudg.Length; i++)
-        {
-            if (otherJudg[i].activeSelf) otherJudg[i].SetActive(false);
-        }
+        //for(int i=0; i < otherJudg.Length; i++)
+        //{
+        //    if (otherJudg[i].activeSelf) otherJudg[i].SetActive(false);
+        //}
 
         if (time > 1.5f)
         {

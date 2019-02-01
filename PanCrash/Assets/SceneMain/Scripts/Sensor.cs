@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Sensor : MonoBehaviour {
 
@@ -9,9 +10,12 @@ public class Sensor : MonoBehaviour {
 
     bool PlayerFlg = false;
     bool SetFlg = false;
+    bool GameOver = false;
 
     int Status = 99;
 
+    [HideInInspector]
+    public  static int i_Score = 0;
     [HideInInspector]
     public int Score = 0;
 
@@ -31,11 +35,13 @@ public class Sensor : MonoBehaviour {
     // Use this for initialization
     void Start () {
         aud = GetComponent<AudioSource>();
+        Score = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        text.GetComponent<Text>().text = Score.ToString("0");
+        i_Score = Score;
+        text.GetComponent<Text>().text = i_Score.ToString("0");
 		if(PlayerFlg && !SetFlg)      //プレイヤーが飛び出ていてJKが来てない場合
         {
             waitTime += Time.deltaTime;
@@ -58,24 +64,40 @@ public class Sensor : MonoBehaviour {
                 if(y >=0 && y < 0.1f) //Excelent
                 {
                     Status = 0;
+                    for(int i=0; i<Judgment.Length; i++)
+                    {
+                        Judgment[i].SetActive(false);
+                    }
                     Judgment[Status].SetActive(true);
-                    if(!Effects[Status].activeSelf) Effects[Status].SetActive(true);
+                    if (!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.1f && y < 0.5f) //Great
                 {
                     Status = 1;
+                    for (int i = 0; i < Judgment.Length; i++)
+                    {
+                        Judgment[i].SetActive(false);
+                    }
                     Judgment[Status].SetActive(true);
                     if (!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.5f && y < 0.8f) //Nice
                 {
-                    Status = 2;
+                    Status = 2; 
+                    for (int i = 0; i < Judgment.Length; i++)
+                    {
+                        Judgment[i].SetActive(false);
+                    }
                     Judgment[Status].SetActive(true);
                     if (!Effects[Status].activeSelf) Effects[Status].SetActive(true);
                 }
                 else if(y >= 0.8f && y < 1.0f) //Bad
                 {
                     Status = 3;
+                    for (int i = 0; i < Judgment.Length; i++)
+                    {
+                        Judgment[i].SetActive(false);
+                    }
                     Judgment[Status].SetActive(true);
                 }
                 else //Miss
@@ -123,6 +145,14 @@ public class Sensor : MonoBehaviour {
             default:
                 break;
         }
+
+        if (GameOver)
+        {
+            if (!aud.isPlaying)
+            {
+                SceneManager.LoadScene("SceneResult");
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -151,9 +181,11 @@ public class Sensor : MonoBehaviour {
 
         if(collision.tag == "OTK")
         {
-            if(PlayerFlg)
+            if (PlayerFlg)
             {
                 aud.PlayOneShot(Se[4]);
+                GameOver = true;
+                GameObject.Find("JKCreater").GetComponent<CreateJK>().GameOver = true;
             }
         }
     }
@@ -164,5 +196,10 @@ public class Sensor : MonoBehaviour {
         JKpos = Vector2.zero;
         Status = 4;
         SetFlg = false;
+    }
+
+    public static int GetScore()
+    {
+        return i_Score;
     }
 }

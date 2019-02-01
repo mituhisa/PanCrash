@@ -36,9 +36,11 @@ public class SceneRankingManager : MonoBehaviour
         ScoreText.text = null;
         for (int i = 0; i < CO.RANKING_LENGTH; i++)
         {
-            ScoreText.text += PlayerPrefs.GetInt(i.ToString(), 0).ToString() + "\n";
+            //PlayerPrefs.SetInt(i.ToString(), 0);
+            ScoreText.text +=( PlayerPrefs.GetInt(i.ToString(), 0)).ToString() + "\n";
             //PlayerPrefs.SetString(i.ToString(), "******");//*****************************************************************************************************
         }
+        PlayerPrefs.Save();
 
         InputRanking();
 

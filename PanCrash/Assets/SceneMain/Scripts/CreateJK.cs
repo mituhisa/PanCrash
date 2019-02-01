@@ -12,6 +12,9 @@ public class CreateJK : MonoBehaviour {
     public GameObject OTK;
     public GameObject SPUP;
 
+    [HideInInspector]
+    public bool GameOver = false;
+
     int max = 10;
 	// Use this for initialization
 	void Start () {
@@ -20,39 +23,42 @@ public class CreateJK : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        time += Time.deltaTime;
-        LvUpTime += Time.deltaTime;
-        if(time > interval)
+        if (!GameOver)
         {
-            int Dice = Random.Range(0, max);
-            if (Dice > 0)
+            time += Time.deltaTime;
+            LvUpTime += Time.deltaTime;
+            if (time > interval)
             {
-                GameObject jk = Instantiate(JK, this.transform.position, this.transform.rotation);
-                jk.GetComponent<JK>().speed = speed;
+                int Dice = Random.Range(0, max);
+                if (Dice > 0)
+                {
+                    GameObject jk = Instantiate(JK, this.transform.position, this.transform.rotation);
+                    jk.GetComponent<JK>().speed = speed;
+                }
+                else
+                {
+                    GameObject otk = Instantiate(OTK, this.transform.position, this.transform.rotation);
+                    otk.GetComponent<JK>().speed = speed;
+                }
+                time = 0;
             }
-            else
-            {
-                GameObject otk = Instantiate(OTK, this.transform.position, this.transform.rotation);
-                otk.GetComponent<JK>().speed = speed;
-            }
-            time = 0;
-        }
 
-        if(LvUpTime > 5.0f)
-        {
-            if (interval > 0.5f)
+            if (LvUpTime > 5.0f)
             {
-                interval = interval - 0.2f;
-                speed = speed + -0.01f;
-                LvUpTime = 0;
-                SPUP.GetComponent<SpeedUp>().speedup = true;
+                if (interval > 0.5f)
+                {
+                    interval = interval - 0.2f;
+                    speed = speed + -0.01f;
+                    LvUpTime = 0;
+                    SPUP.GetComponent<SpeedUp>().speedup = true;
+                }
             }
-        }
 
-        if(interval < 0.5f)
-        {
-            speed = Random.Range(-0.25f, -0.15f);
-            max = Random.Range(2, 5);
+            if (interval < 0.5f)
+            {
+                speed = Random.Range(-0.25f, -0.15f);
+                max = Random.Range(2, 5);
+            }
         }
 	}
 }

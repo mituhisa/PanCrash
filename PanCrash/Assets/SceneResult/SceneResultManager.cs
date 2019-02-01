@@ -18,7 +18,7 @@ public class SceneResultManager : MonoBehaviour
     void Start()
     {
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        //score = SceneMain.GetScore();****************************************************************************
+        score = Sensor.GetScore();
         ScoreText.text = "Score : "+score.ToString();
 
 

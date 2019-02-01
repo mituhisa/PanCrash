@@ -16,22 +16,26 @@ public class JK : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!rotStart)
+        GameObject jkCreater = GameObject.Find("JKCreater");
+        if (!jkCreater.GetComponent<CreateJK>().GameOver)
         {
-            Vector2 AddPos = transform.position;
-            AddPos += new Vector2(0, speed);
-            transform.position = AddPos;
+            if (!rotStart)
+            {
+                Vector2 AddPos = transform.position;
+                AddPos += new Vector2(0, speed);
+                transform.position = AddPos;
 
-            if (transform.position.y < -6.0f) Destroy(gameObject);
-        }
-        else
-        {
-            transform.Rotate(0, 0, 20);
-            Vector2 AddPos = transform.position;
-            AddPos += new Vector2(0.2f, 0.1f);
-            transform.position = AddPos;
+                if (transform.position.y < -6.0f) Destroy(gameObject);
+            }
+            else
+            {
+                transform.Rotate(0, 0, 20);
+                Vector2 AddPos = transform.position;
+                AddPos += new Vector2(0.2f, 0.1f);
+                transform.position = AddPos;
 
-            if (transform.position.x > 6) Destroy(gameObject);
+                if (transform.position.x > 6) Destroy(gameObject);
+            }
         }
 	}
 }
